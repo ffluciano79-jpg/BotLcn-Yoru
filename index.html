@@ -9,7 +9,6 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-
 :root{--main-color:#ff4d88;}
 
 body{
@@ -19,256 +18,148 @@ body{
  overflow-x:hidden;
 }
 
-/* LOADING 3D */
+/* LOADING */
 #loading{
- position:fixed;
- inset:0;
- background:#040406;
- display:flex;
- align-items:center;
- justify-content:center;
+ position:fixed;inset:0;background:#040406;
+ display:flex;align-items:center;justify-content:center;
  z-index:9999;
 }
-
 .loader-box{
- width:90%;
- max-width:320px;
- padding:30px 20px;
- border-radius:30px;
- background:rgba(255,255,255,0.03);
- backdrop-filter:blur(20px);
- text-align:center;
- box-shadow:0 0 80px rgba(255,255,255,0.05);
- animation:fadeIn 1s ease;
+ width:90%;max-width:320px;padding:30px 20px;
+ border-radius:30px;background:rgba(255,255,255,0.03);
+ backdrop-filter:blur(20px);text-align:center;
 }
+.loader-img{width:90px;height:90px;margin:auto;border-radius:20px;overflow:hidden;animation:spin 3s infinite}
+.loader-img img{width:100%;height:100%;object-fit:cover;}
+@keyframes spin{0%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
 
-.loader-img{
- width:90px;
- height:90px;
- margin:0 auto 20px;
- border-radius:20px;
- overflow:hidden;
- animation:rotate3d 3s infinite ease-in-out;
+.loader-bar{height:6px;background:#222;border-radius:10px;margin-top:10px;overflow:hidden}
+.loader-progress{height:100%;width:0;background:var(--main-color);animation:load 3s forwards}
+@keyframes load{to{width:100%}}
+
+/* MENU */
+.menu-btn{
+ position:fixed;top:20px;right:20px;
+ background:#111;padding:10px;border-radius:10px;z-index:10;
 }
+.menu{
+ position:fixed;top:0;right:-260px;width:260px;height:100%;
+ background:#0a0a0f;padding:20px;transition:.3s;
+ display:flex;flex-direction:column;gap:10px;z-index:10;
+}
+.menu.active{right:0;}
 
-.loader-img img{
+.menu-slider{
  width:100%;
- height:100%;
- object-fit:cover;
-}
-
-@keyframes rotate3d{
- 0%{transform:perspective(800px) rotateY(0deg)}
- 50%{transform:perspective(800px) rotateY(180deg)}
- 100%{transform:perspective(800px) rotateY(360deg)}
-}
-
-.loader-box h1{
- font-family:'Orbitron';
- font-size:22px;
-}
-
-.loader-box p{
- opacity:.6;
- font-size:13px;
- margin-bottom:15px;
-}
-
-.loader-bar{
- width:100%;
+ appearance:none;
  height:6px;
- background:rgba(255,255,255,0.1);
+ background:#222;
  border-radius:10px;
- overflow:hidden;
+ outline:none;
 }
-
-.loader-progress{
- width:0%;
- height:100%;
- background:var(--main-color);
- animation:loadBar 3s ease forwards;
-}
-
-@keyframes loadBar{to{width:100%}}
-@keyframes fadeIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-
-/* resto */
-.neon{
- position:fixed;
- width:15px;height:15px;
+.menu-slider::-webkit-slider-thumb{
+ appearance:none;
+ width:14px;height:14px;
  border-radius:50%;
- pointer-events:none;
  background:var(--main-color);
- box-shadow:0 0 20px var(--main-color),0 0 40px var(--main-color);
- z-index:999;
+ cursor:pointer;
+ box-shadow:0 0 10px var(--main-color);
 }
 
-canvas{position:fixed;inset:0;z-index:0;}
-
-.container{max-width:850px;margin:80px auto;padding:20px;position:relative;z-index:1;}
-
+/* MAIN */
+.container{max-width:850px;margin:80px auto;padding:20px;}
 .main{
  background:rgba(255,255,255,0.04);
  backdrop-filter:blur(20px);
  border-radius:30px;
- padding:40px 25px;
- border:1px solid rgba(255,255,255,0.06);
+ padding:40px;
  text-align:center;
 }
-
-.logo{font-family:'Orbitron';color:var(--main-color);}
-.time{background:rgba(255,255,255,0.05);padding:8px 14px;border-radius:20px;}
-
 .avatar{
  width:100px;height:100px;border-radius:50%;
  margin:20px auto;
  box-shadow:0 0 30px var(--main-color);
- animation:float 4s ease-in-out infinite;
 }
-
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-
 .btn{
- margin-top:25px;width:100%;padding:18px;
- border-radius:18px;border:none;
- background:var(--main-color);color:#fff;
+ width:100%;padding:15px;margin-top:20px;
+ background:var(--main-color);
+ border:none;border-radius:15px;color:#fff;
 }
-
-.progress{width:100%;height:6px;background:rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;cursor:pointer;}
-.progress-bar{height:100%;width:0;background:var(--main-color);}
-.volume{width:100%;margin-top:8px;}
 </style>
 </head>
 
 <body>
 
 <div id="loading">
-  <div class="loader-box">
-    <div class="loader-img">
-      <img src="https://i.ibb.co/6RCGNGD4/bf962842325b.jpg">
-    </div>
-    <h1>YORU SYSTEM</h1>
-    <p>By Lucianz</p>
-    <div class="loader-bar">
-      <div class="loader-progress"></div>
-    </div>
+ <div class="loader-box">
+  <div class="loader-img">
+   <img src="https://i.ibb.co/6RCGNGD4/bf962842325b.jpg">
   </div>
+  <h2>YORU SYSTEM</h2>
+  <p>By Lucianz</p>
+  <div class="loader-bar"><div class="loader-progress"></div></div>
+ </div>
 </div>
 
-<canvas id="particles"></canvas>
-<div class="neon" id="neon"></div>
+<div class="menu-btn" onclick="toggleMenu()">⋮</div>
+
+<div class="menu" id="menu">
+<button onclick="toggleMenu()">← Voltar</button>
+
+<h3>Tema</h3>
+<input type="color" onchange="setColor(this.value)">
+
+<h3>Volume</h3>
+<input type="range" min="0" max="1" step="0.01" class="menu-slider" oninput="setVolume(this.value)">
+
+<h3>Progresso</h3>
+<input type="range" min="0" max="100" class="menu-slider" id="seekbar" oninput="seekMenu(this.value)">
+</div>
 
 <div class="container">
 <div class="main">
-
-<div style="display:flex;justify-content:space-between">
-<div class="logo">YORU SYSTEM</div>
-<div class="time" id="time"></div>
-</div>
+<h1>YORU SYSTEM</h1>
 
 <img class="avatar" src="https://i.ibb.co/6RCGNGD4/bf962842325b.jpg">
 
-<h1>Automação com controle real</h1>
-
-<button class="btn" onclick="window.open('https://whatsapp.com/channel/0029Vb5wx3GId7nT87R9gn3L')">
-Canal Oficial
-</button>
-
-<div class="controls">
-<button onclick="toggleMusic()">Música</button>
-<button onclick="nextMusic()">Próxima</button>
-
-<div class="progress" onclick="seek(event)">
-<div class="progress-bar" id="bar"></div>
-</div>
-
-<input type="range" min="0" max="1" step="0.01" class="volume" onchange="setVolume(this.value)">
-</div>
-
+<button class="btn" onclick="toggleMusic()">Play / Pause</button>
 </div>
 </div>
 
 <audio id="music"></audio>
 
 <script>
-setInterval(()=>{
- let d=new Date()
- document.getElementById("time").innerText=d.getHours()+":"+String(d.getMinutes()).padStart(2,'0')
-},1000)
-
-let playlist=[
-"https://raw.githubusercontent.com/dylanModz/uploads/main/midias/audios/527eu4coi.mp3",
-"https://raw.githubusercontent.com/dylanModz/uploads/main/midias/audios/7713x1kpz.mp3"
-]
-
-let i=0
 let music=document.getElementById("music")
-music.src=playlist[i]
+music.src="https://raw.githubusercontent.com/dylanModz/uploads/main/midias/audios/527eu4coi.mp3"
 
 function toggleMusic(){music.paused?music.play():music.pause()}
-function nextMusic(){i=(i+1)%playlist.length;music.src=playlist[i];music.play()}
-
-let bar=document.getElementById("bar")
-music.addEventListener("timeupdate",()=>{
- let p=(music.currentTime/music.duration)*100
- bar.style.width=p+"%"
-})
-
-function seek(e){
- let rect=e.currentTarget.getBoundingClientRect()
- let percent=(e.clientX-rect.left)/rect.width
- music.currentTime=percent*music.duration
-}
 
 function setVolume(v){music.volume=v}
 
-/* neon */
-let neon=document.getElementById("neon")
-document.addEventListener("mousemove",(e)=>{
- neon.style.left=e.clientX+"px"
- neon.style.top=e.clientY+"px"
-})
-
-/* particles */
-let canvas=document.getElementById("particles")
-let ctx=canvas.getContext("2d")
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
-
-let particles=[]
-for(let i=0;i<80;i++){
- particles.push({
-  x:Math.random()*canvas.width,
-  y:Math.random()*canvas.height,
-  r:Math.random()*2,
-  dx:(Math.random()-0.5),
-  dy:(Math.random()-0.5)
- })
+function seekMenu(v){
+ if(music.duration){
+  music.currentTime=(v/100)*music.duration
+ }
 }
 
-function draw(){
- ctx.clearRect(0,0,canvas.width,canvas.height)
- particles.forEach(p=>{
-  ctx.beginPath()
-  ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
-  ctx.fillStyle="rgba(255,255,255,0.5)"
-  ctx.fill()
-  p.x+=p.dx
-  p.y+=p.dy
-  if(p.x<0||p.x>canvas.width)p.dx*=-1
-  if(p.y<0||p.y>canvas.height)p.dy*=-1
- })
- requestAnimationFrame(draw)
+function toggleMenu(){
+ document.getElementById("menu").classList.toggle("active")
 }
-draw()
 
-/* loading hide */
+function setColor(c){
+ document.documentElement.style.setProperty('--main-color',c)
+}
+
 window.onload=()=>{
- setTimeout(()=>{
-  document.getElementById("loading").style.opacity="0"
-  setTimeout(()=>{document.getElementById("loading").style.display="none"},500)
- },3000)
+ setTimeout(()=>{document.getElementById("loading").style.display="none"},3000)
 }
+
+music.addEventListener("timeupdate",()=>{
+ let bar=document.getElementById("seekbar")
+ if(music.duration){
+  bar.value=(music.currentTime/music.duration)*100
+ }
+})
 </script>
 
 </body>
