@@ -195,6 +195,19 @@ function toggleMenu(){
 
 function setColor(c){
  document.documentElement.style.setProperty('--main-color',c)
+
+ // detectar se cor é clara ou escura
+ let r=parseInt(c.substr(1,2),16)
+ let g=parseInt(c.substr(3,2),16)
+ let b=parseInt(c.substr(5,2),16)
+
+ let brightness=(r*299+g*587+b*114)/1000
+
+ if(brightness > 180){
+  document.body.style.color="#000"
+ }else{
+  document.body.style.color="#fff"
+ }
 }
 
 /* neon */
