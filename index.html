@@ -111,10 +111,101 @@ body{
  transform:scale(1.03);
  filter:brightness(1.2);
 }
+
+/* LOADING PREMIUM */
+#loading{
+ position:fixed;
+ inset:0;
+ background:#040406;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ z-index:9999;
+ transition:opacity .6s ease;
+}
+
+.loader-box{
+ width:90%;
+ max-width:320px;
+ padding:30px 20px;
+ border-radius:25px;
+ background:rgba(255,255,255,0.04);
+ backdrop-filter:blur(20px);
+ text-align:center;
+ box-shadow:0 0 60px rgba(0,0,0,0.5);
+ animation:fadeIn .8s ease;
+}
+
+.loader-img{
+ width:90px;
+ height:90px;
+ margin:0 auto 15px;
+ border-radius:20px;
+ overflow:hidden;
+ animation:spin3d 3s infinite ease-in-out;
+}
+
+.loader-img img{
+ width:100%;
+ height:100%;
+ object-fit:cover;
+}
+
+@keyframes spin3d{
+ 0%{transform:perspective(800px) rotateY(0)}
+ 50%{transform:perspective(800px) rotateY(180deg)}
+ 100%{transform:perspective(800px) rotateY(360deg)}
+}
+
+.loader-box h2{
+ font-family:'Orbitron';
+ color:var(--main-color);
+ text-shadow:0 0 10px var(--main-color);
+}
+
+.loader-box p{
+ opacity:.6;
+ font-size:13px;
+ margin-bottom:15px;
+}
+
+.loader-bar{
+ width:100%;
+ height:6px;
+ background:rgba(255,255,255,0.1);
+ border-radius:10px;
+ overflow:hidden;
+}
+
+.loader-progress{
+ width:0%;
+ height:100%;
+ background:linear-gradient(90deg,var(--main-color),#fff);
+ animation:loadBar 3s ease forwards;
+}
+
+@keyframes loadBar{
+ to{width:100%}
+}
+
 </style>
 </head>
 
 <body>
+
+<div id="loading">
+ <div class="loader-box">
+  <div class="loader-img">
+   <img src="https://i.ibb.co/6RCGNGD4/bf962842325b.jpg">
+  </div>
+  <h2>YORU SYSTEM</h2>
+  <p>Inicializando sistema...</p>
+
+  <div class="loader-bar">
+   <div class="loader-progress"></div>
+  </div>
+ </div>
+</div>
 
 <div class="menu-btn" onclick="toggleMenu()">⋮</div>
 
@@ -219,6 +310,15 @@ setInterval(()=>{
 
 /* INICIAR */
 detectTheme()
+
+/* LOADING REMOVE SUAVE */
+window.onload=()=>{
+ setTimeout(()=>{
+  let load=document.getElementById("loading")
+  load.style.opacity="0"
+  setTimeout(()=>{load.style.display="none"},600)
+ },2500)
+}
 </script>
 
 </body>
