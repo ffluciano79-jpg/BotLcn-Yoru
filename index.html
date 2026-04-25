@@ -343,10 +343,78 @@ body{
 .bot-info:hover{
  transform:scale(1.02);
  box-shadow:0 0 30px var(--main-color);
-}  
+} 
+
+.modal{
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,0.6);
+ backdrop-filter:blur(10px);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ z-index:9999;
+ animation:fadeIn .4s ease;
+}
+
+.modal-box{
+ width:90%;
+ max-width:320px;
+ padding:25px;
+ border-radius:25px;
+ background:rgba(255,255,255,0.05);
+ backdrop-filter:blur(20px);
+ text-align:center;
+ box-shadow:0 0 40px rgba(0,0,0,0.6);
+ position:relative;
+}
+
+.modal-avatar{
+ width:120px;
+ height:120px;
+ border-radius:50%;
+ margin-bottom:15px;
+ box-shadow:0 0 20px var(--main-color);
+}
+
+.modal-box h2{
+ font-size:18px;
+ margin-bottom:8px;
+}
+
+.modal-box p{
+ font-size:14px;
+ opacity:0.8;
+ margin-bottom:10px;
+}
+
+.credit{
+ font-size:12px;
+ opacity:0.6;
+}
+
+.close-btn{
+ position:absolute;
+ top:10px;
+ right:10px;
+ cursor:pointer;
+ background:rgba(255,255,255,0.1);
+ padding:5px 8px;
+ border-radius:8px;
+}
+ 
 </style> 
 </head>
-<body> 
+<body>
+<div id="welcomeModal" class="modal">
+<div class="modal-box">    
+<span class="close-btn" onclick="fecharModal()">✖</span>
+<img src="https://i.ibb.co/6RCGNGD4/bf962842325b.jpg" class="modal-avatar">   
+ <h2>💖 SEJA BEM VINDO (A) 💖</h2>
+<p>Bem-vindo (a) ao painel de APIs da Zero Two...</p>    
+<span class="credit">By lucas_mod_domina</span>    
+</div>
+</div>
 <div class="bot-info">
 <span class="bot-title">🤖 Sobre a Bot</span>
 <p class="bot-desc">Yoru é uma bot feita na base da Dark Stars, uma base limpa feita por Pedromodz e Belphegor. Modificada por mim, Lucianz. Contém vários comandos úteis pro seu grupo. A Yoru não funciona muito bem em PVs, então esqueça PV. Ainda está em beta, não espere muitas melhorias KKKKKKKKKK, sou preguiçoso.
@@ -525,6 +593,26 @@ function animateParticles(){
 }
 
 animateParticles()  
+
+function fecharModal(){
+ document.getElementById("welcomeModal").style.display = "none"
+}
+
+/* mostrar automaticamente */
+window.addEventListener("load", () => {
+ setTimeout(() => {
+  document.getElementById("welcomeModal").style.display = "flex"
+ }, 800)
+})
+
+window.addEventListener("load", () => {
+ if(!localStorage.getItem("welcome_seen")){
+  setTimeout(() => {
+   document.getElementById("welcomeModal").style.display = "flex"
+   localStorage.setItem("welcome_seen", "true")
+  }, 800)
+ }
+})
   
 </script> 
 </body>  
