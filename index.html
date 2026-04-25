@@ -272,6 +272,37 @@ body{
  transition:1s;
 }
   
+.creator{
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ gap:8px;
+ margin-top:10px;
+}
+
+.creator-title{
+ font-size:13px;
+ opacity:0.7;
+}
+
+.creator-img{
+ width:60px;
+ height:60px;
+ border-radius:50%;
+ object-fit:cover;
+ box-shadow:0 0 15px var(--main-color);
+ transition:.3s;
+}
+
+.creator-img:hover{
+ transform:scale(1.1);
+}
+
+.creator-name{
+ font-size:14px;
+ font-weight:600;
+}  
+  
 </style> 
 
  </head>  <body>
@@ -314,9 +345,15 @@ Falar com o Dono
     </p>
 
     <div class="footer-info">
-      <span>👤 Criador: <b>Lucianz</b></span>
+<div class="creator">
+  <span class="creator-title">👑 Criador</span>
+
+  <img src="https://i.ibb.co/MxhmXVGQ/d93861f84200.jpg" class="creator-img">
+
+  <span class="creator-name">Lucianz</span>
+</div>
       <span>⚙️ Versão: v1.6.0</span>
-      <span>🚀 Status: Online</span>
+      <span> 2026 </span>
     </div>
 
     <div class="footer-links">
