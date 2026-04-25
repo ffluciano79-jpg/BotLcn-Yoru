@@ -102,18 +102,6 @@ canvas{position:fixed;inset:0;z-index:0;}
  background:var(--main-color);color:#fff;
  cursor:pointer;
 }
-
-.progress{
- width:100%;height:6px;
- background:rgba(255,255,255,0.1);
- border-radius:10px;overflow:hidden;cursor:pointer;
-}
-.progress-bar{
- height:100%;width:0;background:var(--main-color);
- transition:.1s;
-}
-
-.volume{width:100%;margin-top:10px;}
 </style>
 </head>
 
@@ -125,7 +113,7 @@ canvas{position:fixed;inset:0;z-index:0;}
    <img src="https://i.ibb.co/6RCGNGD4/bf962842325b.jpg">
   </div>
   <h2>YORU SYSTEM</h2>
-  <p>By Lucianz</p>
+  <p>• Lucianz •</p>
   <div class="loader-bar"><div class="loader-progress"></div></div>
  </div>
 </div>
@@ -158,13 +146,17 @@ canvas{position:fixed;inset:0;z-index:0;}
 
 <img class="avatar" src="https://i.ibb.co/6RCGNGD4/bf962842325b.jpg">
 
-<h1>Automação com controle real</h1>
+<h1>Yoru Uma Bot Feita Pra Grupo</h1>
 
 <button class="btn" onclick="toggleMusic()">Play / Pause</button>
 
-<div class="progress" onclick="seek(event)">
-<div class="progress-bar" id="bar"></div>
-</div>
+<button class="btn" onclick="window.open('https://whatsapp.com/channel/0029Vb5wx3GId7nT87R9gn3L')">
+Canal Oficial
+</button>
+
+<button class="btn" onclick="window.open('https://wa.me/5584981625194')">
+Falar com o Dono
+</button>
 
 </div>
 </div>
@@ -188,30 +180,14 @@ let music=document.getElementById("music")
 music.src=playlist[i]
 
 function toggleMusic(){music.paused?music.play():music.pause()}
-function nextMusic(){i=(i+1)%playlist.length;music.src=playlist[i];music.play()}
 
-let bar=document.getElementById("bar")
-let seekbar=document.getElementById("seekbar")
-
-music.addEventListener("timeupdate",()=>{
- let p=(music.currentTime/music.duration)*100
- bar.style.width=p+"%"
- if(music.duration) seekbar.value=p
-})
-
-function seek(e){
- let rect=e.currentTarget.getBoundingClientRect()
- let percent=(e.clientX-rect.left)/rect.width
- music.currentTime=percent*music.duration
-}
+function setVolume(v){music.volume=v}
 
 function seekMenu(v){
  if(music.duration){
   music.currentTime=(v/100)*music.duration
  }
 }
-
-function setVolume(v){music.volume=v}
 
 function toggleMenu(){
  document.getElementById("menu").classList.toggle("active")
