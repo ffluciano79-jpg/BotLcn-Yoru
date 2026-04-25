@@ -343,41 +343,29 @@ body{
 .bot-info:hover{
  transform:scale(1.02);
  box-shadow:0 0 30px var(--main-color);
-}
-
-  
+}  
 </style> 
-
- </head>  <body>
- 
- <div class="bot-info">
-
-  <span class="bot-title">🤖 Sobre a Bot</span>
-
-  <p class="bot-desc">
-    Yoru é uma bot avançada para WhatsApp, focada em automação de grupos,
-    comandos rápidos, diversão e controle total com um sistema moderno.
-  </p>
-
-  <div class="bot-stats">
-    <span>⚡ Velocidade: Alta</span>
-    <span>🧠 Inteligência: Avançada</span>
-    <span>🔐 Segurança: Ativa</span>
-  </div>
-
+</head>
+<body> 
+<div class="bot-info">
+<span class="bot-title">🤖 Sobre a Bot</span>
+<p class="bot-desc">Yoru é uma bot feita na base da Dark Stars, uma base limpa feita por Pedromodz e Belphegor. Modificada por mim, Lucianz. Contém vários comandos úteis pro seu grupo. A Yoru não funciona muito bem em PVs, então esqueça PV. Ainda está em beta, não espere muitas melhorias KKKKKKKKKK, sou preguiçoso.
+</p>
+<div class="bot-stats">
+<span>⚡ Velocidade: Ótima</span>
 </div>
- 
- <canvas id="bg"></canvas>
- <div id="loading">  
- <div class="loader-box">  
-  <div class="loader-img">  
-   <img src="https://i.ibb.co/Rp52gZxf/4a673d55961f.jpg">  
-  </div>  
-  <h2>YORU SYSTEM</h2>  
-  <p>Inicializando sistema...</p>    <div class="loader-bar">  
-   <div class="loader-progress"></div>  
-  </div>  
- </div>  
+</div>
+<canvas id="bg"></canvas>
+<div id="loading">  
+<div class="loader-box">  
+<div class="loader-img">  
+<img src="https://i.ibb.co/Rp52gZxf/4a673d55961f.jpg">  
+</div>  
+<h2>YORU SITE</h2>  
+<p>Inicializando sistema...</p>    <div class="loader-bar">  
+<div class="loader-progress"></div>  
+</div>  
+</div>  
 </div>  <div class="menu-btn" onclick="toggleMenu()">⋮</div>  <div class="menu" id="menu">  
 <button onclick="toggleMenu()">← Voltar</button>  <h3>Escolher Tema</h3>  <div class="palette" id="palette"></div>  <h3>Volume</h3>  
 <input type="range" min="0" max="1" step="0.01" oninput="setVolume(this.value)">  
@@ -385,50 +373,41 @@ body{
 <div class="main">  <div style="display:flex;justify-content:space-between">  
 <div class="logo">YORU SYSTEM</div>  
 <div class="time" id="time"></div>  
-</div>  <img class="avatar" src="https://i.ibb.co/6RCGNGD4/bf962842325b.jpg">  <h1>Yoru Feita Para Grupos</h1>  <button class="btn" onclick="toggleMusic()">Play / Pause</button>
-
+</div>  <img class="avatar" src="https://i.ibb.co/6RCGNGD4/bf962842325b.jpg">  <h1>Yoru Feita Para Grupos</h1>  <button class="btn" onclick="toggleMusic()">Música Escolhida Por Mim</button>
 <button class="btn" onclick="window.open('https://whatsapp.com/channel/0029Vb5wx3GId7nT87R9gn3L')">  
 Canal Oficial  
 </button>  <button class="btn" onclick="window.open('https://wa.me/5584981625194')">  
 Falar com o Dono  
 </button>  </div>  
 </div>  <audio id="music"></audio>
-
 <footer class="footer">
-  <div class="footer-box">
-
-    <h2 class="footer-title">YORU SYSTEM</h2>
-
-    <p class="footer-desc">
-      Bot desenvolvido para automação de grupos com funções avançadas,
-      performance rápida e estilosa.
-    </p>
-
-    <div class="footer-info">
+<div class="footer-box">
+<h2 class="footer-title">YORU SYSTEM</h2>
+<p class="footer-desc">
+Bot desenvolvido para automação de grupos com funções avançadas, performance rápida e estilosa.
+</p>
+<div class="footer-info">
 <div class="creator">
-  <span class="creator-title">👑 Criador</span>
-
-  <img src="https://i.ibb.co/MxhmXVGQ/d93861f84200.jpg" class="creator-img">
-
-  <span class="creator-name">Lucianz</span>
+<span class="creator-title">👑 Criador</span>
+<img src="https://i.ibb.co/MxhmXVGQ/d93861f84200.jpg" class="creator-img">
+<span class="creator-name">Lucianz</span>
 </div>
-      <span>⚙️ Versão: v1.6.0</span>
-      <span> 2026 </span>
-    </div>
-
-    <div class="footer-links">
-      <button onclick="window.open('https://wa.me/5584981625194')">
-        Contato
-      </button>
-      <button onclick="window.open('https://whatsapp.com/channel/0029Vb5wx3GId7nT87R9gn3L')">
-        Canal
-      </button>
-    </div>
-
-  </div>
+<span>⚙️ Versão: v1.6.0</span>
+<span> 2026 </span>
+</div>
+<div class="footer-links">
+<button onclick="window.open('https://wa.me/5584981625194')">
+Contato
+</button>
+<button onclick="window.open('https://whatsapp.com/channel/0029Vb5wx3GId7nT87R9gn3L')">
+Canal
+</button>
+</div>
+</div>
 </footer>
-
 <script>  
+
+
 /* TEMA DO SISTEMA */  
 function detectTheme(){  
  if(window.matchMedia('(prefers-color-scheme: light)').matches){  
