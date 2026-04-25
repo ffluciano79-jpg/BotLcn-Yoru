@@ -9,12 +9,19 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--main-color:#ff4d88;}
+
+/* VARS INTELIGENTES */
+:root{
+ --main-color:#ff4d88;
+ --text-color:#ffffff;
+ --card-bg:rgba(255,255,255,0.04);
+ --soft-bg:rgba(255,255,255,0.05);
+}
 
 body{
  font-family:'Inter',sans-serif;
  background:#040406;
- color:#fff;
+ color:var(--text-color);
  overflow-x:hidden;
  transition:.3s;
 }
@@ -73,8 +80,9 @@ canvas{position:fixed;inset:0;z-index:0;}
 
 /* MAIN */
 .container{max-width:850px;margin:80px auto;padding:20px;position:relative;z-index:1;}
+
 .main{
- background:rgba(255,255,255,0.04);
+ background:var(--card-bg);
  backdrop-filter:blur(20px);
  border-radius:30px;padding:40px 25px;
  border:1px solid rgba(255,255,255,0.06);
@@ -88,8 +96,9 @@ canvas{position:fixed;inset:0;z-index:0;}
 }
 
 .time{
- background:rgba(255,255,255,0.05);
- padding:8px 14px;border-radius:20px;
+ background:var(--soft-bg);
+ padding:8px 14px;
+ border-radius:20px;
 }
 
 .avatar{
@@ -106,14 +115,12 @@ canvas{position:fixed;inset:0;z-index:0;}
  border-radius:18px;border:none;
  background:var(--main-color);
  color:#fff;
- font-weight:500;
+ font-weight:600;
  cursor:pointer;
  transition:.2s;
 }
 
-.btn:hover{
- filter:brightness(1.2);
-}
+.btn:hover{filter:brightness(1.2);}
 </style>
 </head>
 
@@ -189,7 +196,7 @@ function toggleMenu(){
  document.getElementById("menu").classList.toggle("active")
 }
 
-/* COR INTELIGENTE */
+/* COR INTELIGENTE REAL */
 function setColor(c){
  document.documentElement.style.setProperty('--main-color',c)
 
@@ -200,9 +207,13 @@ function setColor(c){
  let brightness=(r*299+g*587+b*114)/1000
 
  if(brightness > 180){
-  document.body.style.color="#000"
+  document.documentElement.style.setProperty('--text-color','#000')
+  document.documentElement.style.setProperty('--card-bg','rgba(0,0,0,0.65)')
+  document.documentElement.style.setProperty('--soft-bg','rgba(0,0,0,0.45)')
  }else{
-  document.body.style.color="#fff"
+  document.documentElement.style.setProperty('--text-color','#fff')
+  document.documentElement.style.setProperty('--card-bg','rgba(255,255,255,0.04)')
+  document.documentElement.style.setProperty('--soft-bg','rgba(255,255,255,0.05)')
  }
 }
 
