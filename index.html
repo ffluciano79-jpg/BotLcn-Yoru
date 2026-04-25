@@ -23,6 +23,7 @@ body{
  position:fixed;inset:0;background:#040406;
  display:flex;align-items:center;justify-content:center;
  z-index:9999;
+ transition:.5s;
 }
 .loader-box{
  width:90%;max-width:320px;padding:30px 20px;
@@ -40,51 +41,79 @@ body{
 /* MENU */
 .menu-btn{
  position:fixed;top:20px;right:20px;
- background:#111;padding:10px;border-radius:10px;z-index:10;
+ background:#111;padding:10px 14px;border-radius:12px;
+ cursor:pointer;z-index:10;
+ box-shadow:0 0 10px rgba(0,0,0,0.5);
 }
 .menu{
- position:fixed;top:0;right:-260px;width:260px;height:100%;
+ position:fixed;top:0;right:-270px;width:270px;height:100%;
  background:#0a0a0f;padding:20px;transition:.3s;
- display:flex;flex-direction:column;gap:10px;z-index:10;
+ display:flex;flex-direction:column;gap:15px;z-index:10;
 }
 .menu.active{right:0;}
 
+.menu h3{font-size:14px;opacity:.7}
+
 .menu-slider{
- width:100%;
- appearance:none;
- height:6px;
- background:#222;
- border-radius:10px;
- outline:none;
+ width:100%;appearance:none;height:6px;
+ background:#222;border-radius:10px;outline:none;
 }
 .menu-slider::-webkit-slider-thumb{
- appearance:none;
- width:14px;height:14px;
- border-radius:50%;
- background:var(--main-color);
- cursor:pointer;
- box-shadow:0 0 10px var(--main-color);
+ appearance:none;width:14px;height:14px;
+ border-radius:50%;background:var(--main-color);
+ cursor:pointer;box-shadow:0 0 10px var(--main-color);
 }
 
+/* BACKGROUND */
+.neon{
+ position:fixed;width:15px;height:15px;border-radius:50%;
+ pointer-events:none;
+ background:var(--main-color);
+ box-shadow:0 0 20px var(--main-color),0 0 40px var(--main-color);
+ z-index:999;
+}
+canvas{position:fixed;inset:0;z-index:0;}
+
 /* MAIN */
-.container{max-width:850px;margin:80px auto;padding:20px;}
+.container{max-width:850px;margin:80px auto;padding:20px;position:relative;z-index:1;}
 .main{
  background:rgba(255,255,255,0.04);
  backdrop-filter:blur(20px);
- border-radius:30px;
- padding:40px;
+ border-radius:30px;padding:40px 25px;
+ border:1px solid rgba(255,255,255,0.06);
  text-align:center;
 }
+
+.logo{font-family:'Orbitron';color:var(--main-color);}
+.time{background:rgba(255,255,255,0.05);padding:8px 14px;border-radius:20px;}
+
 .avatar{
  width:100px;height:100px;border-radius:50%;
  margin:20px auto;
  box-shadow:0 0 30px var(--main-color);
+ animation:float 4s ease-in-out infinite;
 }
+
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
 .btn{
- width:100%;padding:15px;margin-top:20px;
- background:var(--main-color);
- border:none;border-radius:15px;color:#fff;
+ margin-top:25px;width:100%;padding:18px;
+ border-radius:18px;border:none;
+ background:var(--main-color);color:#fff;
+ cursor:pointer;
 }
+
+.progress{
+ width:100%;height:6px;
+ background:rgba(255,255,255,0.1);
+ border-radius:10px;overflow:hidden;cursor:pointer;
+}
+.progress-bar{
+ height:100%;width:0;background:var(--main-color);
+ transition:.1s;
+}
+
+.volume{width:100%;margin-top:10px;}
 </style>
 </head>
 
@@ -106,7 +135,7 @@ body{
 <div class="menu" id="menu">
 <button onclick="toggleMenu()">← Voltar</button>
 
-<h3>Tema</h3>
+<h3>Cor do Tema</h3>
 <input type="color" onchange="setColor(this.value)">
 
 <h3>Volume</h3>
@@ -116,31 +145,73 @@ body{
 <input type="range" min="0" max="100" class="menu-slider" id="seekbar" oninput="seekMenu(this.value)">
 </div>
 
+<canvas id="particles"></canvas>
+<div class="neon" id="neon"></div>
+
 <div class="container">
 <div class="main">
-<h1>YORU SYSTEM</h1>
+
+<div style="display:flex;justify-content:space-between">
+<div class="logo">YORU SYSTEM</div>
+<div class="time" id="time"></div>
+</div>
 
 <img class="avatar" src="https://i.ibb.co/6RCGNGD4/bf962842325b.jpg">
 
+<h1>Automação com controle real</h1>
+
 <button class="btn" onclick="toggleMusic()">Play / Pause</button>
+
+<div class="progress" onclick="seek(event)">
+<div class="progress-bar" id="bar"></div>
+</div>
+
 </div>
 </div>
 
 <audio id="music"></audio>
 
 <script>
+setInterval(()=>{
+ let d=new Date()
+ document.getElementById("time").innerText=
+ d.getHours()+":"+String(d.getMinutes()).padStart(2,'0')
+},1000)
+
+let playlist=[
+"https://raw.githubusercontent.com/dylanModz/uploads/main/midias/audios/527eu4coi.mp3",
+"https://raw.githubusercontent.com/dylanModz/uploads/main/midias/audios/7713x1kpz.mp3"
+]
+
+let i=0
 let music=document.getElementById("music")
-music.src="https://raw.githubusercontent.com/dylanModz/uploads/main/midias/audios/527eu4coi.mp3"
+music.src=playlist[i]
 
 function toggleMusic(){music.paused?music.play():music.pause()}
+function nextMusic(){i=(i+1)%playlist.length;music.src=playlist[i];music.play()}
 
-function setVolume(v){music.volume=v}
+let bar=document.getElementById("bar")
+let seekbar=document.getElementById("seekbar")
+
+music.addEventListener("timeupdate",()=>{
+ let p=(music.currentTime/music.duration)*100
+ bar.style.width=p+"%"
+ if(music.duration) seekbar.value=p
+})
+
+function seek(e){
+ let rect=e.currentTarget.getBoundingClientRect()
+ let percent=(e.clientX-rect.left)/rect.width
+ music.currentTime=percent*music.duration
+}
 
 function seekMenu(v){
  if(music.duration){
   music.currentTime=(v/100)*music.duration
  }
 }
+
+function setVolume(v){music.volume=v}
 
 function toggleMenu(){
  document.getElementById("menu").classList.toggle("active")
@@ -150,16 +221,52 @@ function setColor(c){
  document.documentElement.style.setProperty('--main-color',c)
 }
 
-window.onload=()=>{
- setTimeout(()=>{document.getElementById("loading").style.display="none"},3000)
+/* neon */
+let neon=document.getElementById("neon")
+document.addEventListener("mousemove",(e)=>{
+ neon.style.left=e.clientX+"px"
+ neon.style.top=e.clientY+"px"
+})
+
+/* particles */
+let canvas=document.getElementById("particles")
+let ctx=canvas.getContext("2d")
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
+
+let particles=[]
+for(let i=0;i<80;i++){
+ particles.push({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  r:Math.random()*2,
+  dx:(Math.random()-0.5),
+  dy:(Math.random()-0.5)
+ })
 }
 
-music.addEventListener("timeupdate",()=>{
- let bar=document.getElementById("seekbar")
- if(music.duration){
-  bar.value=(music.currentTime/music.duration)*100
- }
-})
+function draw(){
+ ctx.clearRect(0,0,canvas.width,canvas.height)
+ particles.forEach(p=>{
+  ctx.beginPath()
+  ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+  ctx.fillStyle="rgba(255,255,255,0.5)"
+  ctx.fill()
+  p.x+=p.dx
+  p.y+=p.dy
+  if(p.x<0||p.x>canvas.width)p.dx*=-1
+  if(p.y<0||p.y>canvas.height)p.dy*=-1
+ })
+ requestAnimationFrame(draw)
+}
+draw()
+
+window.onload=()=>{
+ setTimeout(()=>{
+  document.getElementById("loading").style.opacity="0"
+  setTimeout(()=>{document.getElementById("loading").style.display="none"},500)
+ },3000)
+}
 </script>
 
 </body>
