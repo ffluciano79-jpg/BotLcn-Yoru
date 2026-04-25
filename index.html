@@ -180,34 +180,90 @@ function mudarCor() {
     "linear-gradient(135deg, #" + Math.floor(Math.random()*999999) + ", #000)"
 }
 
-/* JOGO */
+<div class="card">
+  <h2>🎮 Jogo do Bot (Pular Obstáculos)</h2>
+  <p>Aperta ESPAÇO ou toca na tela pra pular</p>
+
+  <canvas id="game" width="300" height="150"></canvas>
+  <p>Pontuação: <span id="score">0</span></p>
+  <button onclick="startGame()">Iniciar</button>
+</div>
+
+<script>
+let canvas = document.getElementById("game")
+let ctx = canvas.getContext("2d")
+
+let player = { x: 20, y: 110, w: 20, h: 20, vy: 0 }
+let gravity = 1.5
+let obstacle = { x: 300, y: 110, w: 20, h: 20 }
+let score = 0
+let running = false
+
 function startGame() {
+  player.y = 110
+  player.vy = 0
+  obstacle.x = 300
   score = 0
-  gameActive = true
-  document.getElementById("score").innerText = score
-  document.getElementById("target").style.display = "block"
-  moverAlvo()
+  running = true
+  loop()
 }
 
-function moverAlvo() {
-  if (!gameActive) return
+function loop() {
+  if (!running) return
 
-  const target = document.getElementById("target")
+  ctx.clearRect(0, 0, 300, 150)
 
-  let x = Math.random() * 250
-  let y = Math.random() * 250
+  // player
+  player.vy += gravity
+  player.y += player.vy
 
-  target.style.transform = `translate(${x}px, ${y}px)`
+  if (player.y > 110) {
+    player.y = 110
+    player.vy = 0
+  }
 
-  setTimeout(moverAlvo, 800)
+  ctx.fillStyle = "white"
+  ctx.fillRect(player.x, player.y, player.w, player.h)
+
+  // obstacle
+  obstacle.x -= 5
+  if (obstacle.x < -20) {
+    obstacle.x = 300
+    score++
+    document.getElementById("score").innerText = score
+  }
+
+  ctx.fillStyle = "red"
+  ctx.fillRect(obstacle.x, obstacle.y, obstacle.w, obstacle.h)
+
+  // colisão
+  if (
+    player.x < obstacle.x + obstacle.w &&
+    player.x + player.w > obstacle.x &&
+    player.y < obstacle.y + obstacle.h &&
+    player.y + player.h > obstacle.y
+  ) {
+    running = false
+    alert("💀 Game Over! Pontuação: " + score)
+    return
+  }
+
+  requestAnimationFrame(loop)
 }
 
-document.getElementById("target").onclick = () => {
-  if (!gameActive) return
+// pular
+document.addEventListener("keydown", e => {
+  if (e.code === "Space" && player.y === 110) {
+    player.vy = -12
+  }
+})
 
-  score++
-  document.getElementById("score").innerText = score
-}
+// toque mobile
+canvas.addEventListener("touchstart", () => {
+  if (player.y === 110) {
+    player.vy = -12
+  }
+})
 </script>
 
 </body>
