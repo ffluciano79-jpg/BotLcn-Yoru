@@ -159,6 +159,72 @@ p{
   box-shadow:0 0 30px rgba(255,77,136,0.5);
   object-fit:cover;
 }
+
+
+/* BOTÃO 3 PONTOS */
+.menu-btn{
+  position:fixed;
+  top:20px;
+  right:20px;
+  font-size:22px;
+  cursor:pointer;
+  background:rgba(255,255,255,0.05);
+  padding:10px 14px;
+  border-radius:12px;
+  backdrop-filter:blur(10px);
+}
+
+/* MENU */
+.menu{
+  position:fixed;
+  top:0;
+  right:-260px;
+  width:260px;
+  height:100%;
+  background:rgba(10,10,15,0.95);
+  backdrop-filter:blur(20px);
+  padding:25px;
+  transition:.4s;
+  z-index:999;
+}
+
+.menu.active{
+  right:0;
+}
+
+.menu h3{
+  font-size:14px;
+  margin-bottom:10px;
+}
+
+.menu button{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#111;
+  color:#fff;
+  margin-top:10px;
+}
+
+/* CORES */
+.colors{
+  display:flex;
+  gap:10px;
+}
+
+.color{
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.pink{background:#ff4d88}
+.blue{background:#4da6ff}
+.purple{background:#a64dff}
+.green{background:#4dff88}
+
 </style>
 </head>
 
@@ -167,6 +233,26 @@ p{
 <div class="container">
 
 <div class="main">
+
+<!-- MENU BOTÃO -->
+<div class="menu-btn" onclick="toggleMenu()">⋮</div>
+
+<!-- MENU LATERAL -->
+<div class="menu" id="menu">
+  <h3>Perfil</h3>
+  <p style="opacity:.6">Yoru System ativo</p>
+
+  <h3 style="margin-top:20px">Tema</h3>
+  <div class="colors">
+    <div class="color pink" onclick="setColor('#ff4d88')"></div>
+    <div class="color blue" onclick="setColor('#4da6ff')"></div>
+    <div class="color purple" onclick="setColor('#a64dff')"></div>
+    <div class="color green" onclick="setColor('#4dff88')"></div>
+  </div>
+
+  <h3 style="margin-top:20px">Config</h3>
+  <button onclick="toggleMusic()">Tocar música</button>
+</div>
 
 <div class="top">
   <div class="logo">YORU SYSTEM</div>
@@ -205,17 +291,18 @@ Canal Oficial
 <audio id="music"></audio>
 
 <script>
-// relógio
 setInterval(()=>{
- let d=new Date()
- document.getElementById(\"time\").innerText=
- d.getHours()+\":\"+String(d.getMinutes()).padStart(2,'0')
+ let d = new Date()
+ let h = String(d.getHours()).padStart(2,'0')
+ let m = String(d.getMinutes()).padStart(2,'0')
+ let s = String(d.getSeconds()).padStart(2,'0')
+ document.getElementById("time").innerText = `${h}:${m}:${s}`
 },1000)
 
 // música
 let playlist=[
 \"https://raw.githubusercontent.com/dylanModz/uploads/main/midias/audios/527eu4coi.mp3\",
-\"https://raw.githubusercontent.com/dylanModz/uploads/main/midias/audios/track2.mp3\"
+\"https://raw.githubusercontent.com/dylanModz/uploads/main/midias/audios/7713x1kpz.mp3\"
 ]
 
 let i=0
@@ -233,6 +320,17 @@ function nextMusic(){
 }
 
 music.addEventListener(\"ended\",nextMusic)
+
+// MENU
+function toggleMenu(){
+  document.getElementById("menu").classList.toggle("active")
+}
+
+// TROCAR COR
+function setColor(color){
+  document.querySelector(".btn").style.background = color
+  document.querySelector(".logo").style.color = color
+}
 </script>
 
 </body>
