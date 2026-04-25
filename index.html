@@ -191,6 +191,86 @@ body{
  height:100%;
  z-index:-1;
 }
+
+.footer{
+ margin-top:60px;
+ padding:30px 20px;
+ display:flex;
+ justify-content:center;
+}
+
+.footer-box{
+ width:100%;
+ max-width:850px;
+ background:rgba(255,255,255,0.04);
+ backdrop-filter:blur(20px);
+ border-radius:25px;
+ padding:25px;
+ text-align:center;
+ box-shadow:0 0 50px rgba(0,0,0,0.5);
+ animation:fadeIn 1s ease;
+}
+
+.footer-title{
+ font-family:'Orbitron';
+ color:var(--main-color);
+ text-shadow:0 0 10px var(--main-color);
+ margin-bottom:10px;
+}
+
+.footer-desc{
+ opacity:0.7;
+ font-size:14px;
+ margin-bottom:15px;
+}
+
+.footer-info{
+ display:flex;
+ flex-direction:column;
+ gap:5px;
+ margin-bottom:15px;
+ font-size:13px;
+ opacity:0.8;
+}
+
+.footer-links{
+ display:flex;
+ gap:10px;
+ justify-content:center;
+}
+
+.footer-links button{
+ padding:10px 15px;
+ border:none;
+ border-radius:12px;
+ background:var(--main-color);
+ color:#fff;
+ cursor:pointer;
+ transition:.3s;
+}
+
+.footer-links button:hover{
+ transform:scale(1.05);
+ filter:brightness(1.2);
+}
+
+.footer-box{
+ position:relative;
+ overflow:hidden;
+}
+
+.footer-box::before{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(120deg,transparent,rgba(255,255,255,0.2),transparent);
+ transform:translateX(-100%);
+}
+
+.footer-box:hover::before{
+ transform:translateX(100%);
+ transition:1s;
+}
   
 </style> 
 
@@ -223,7 +303,33 @@ Falar com o Dono
 </button>  </div>  
 </div>  <audio id="music"></audio>
 
+<footer class="footer">
+  <div class="footer-box">
 
+    <h2 class="footer-title">YORU SYSTEM</h2>
+
+    <p class="footer-desc">
+      Bot desenvolvido para automação de grupos com funções avançadas,
+      performance rápida e estilosa.
+    </p>
+
+    <div class="footer-info">
+      <span>👤 Criador: <b>Lucianz</b></span>
+      <span>⚙️ Versão: v1.6.0</span>
+      <span>🚀 Status: Online</span>
+    </div>
+
+    <div class="footer-links">
+      <button onclick="window.open('https://wa.me/5584981625194')">
+        Contato
+      </button>
+      <button onclick="window.open('https://whatsapp.com/channel/0029Vb5wx3GId7nT87R9gn3L')">
+        Canal
+      </button>
+    </div>
+
+  </div>
+</footer>
 
 <script>  
 /* TEMA DO SISTEMA */  
