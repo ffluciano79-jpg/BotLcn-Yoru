@@ -182,18 +182,11 @@ body{
 @keyframes loadBar{  
  to{width:100%}  
 }  
-  
-  
-  
-#bg{
+
+canvas{
  position:fixed;
  inset:0;
- z-index:0;
-}
-
-.container{
- position:relative;
- z-index:1;
+ z-index:-1;
 }
   
 </style>  </head>  <body>  <div id="loading">  
@@ -298,53 +291,46 @@ window.onload=()=>{
 }  
   
   
-  /* FUNDO ANIMADO PREMIUM */
-let bg = document.getElementById("bg")
-let ctxBg = bg.getContext("2d")
+  const canvas = document.getElementById("bg")
+const ctx = canvas.getContext("2d")
 
-bg.width = window.innerWidth
-bg.height = window.innerHeight
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
 
 let particles = []
 
 for(let i=0;i<80;i++){
  particles.push({
-  x:Math.random()*bg.width,
-  y:Math.random()*bg.height,
-  r:Math.random()*2.5,
-  dx:(Math.random()-0.5)*0.6,
-  dy:(Math.random()-0.5)*0.6
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  r:Math.random()*2,
+  dx:(Math.random()-0.5)*0.5,
+  dy:(Math.random()-0.5)*0.5
  })
 }
 
-function animateBg(){
- ctxBg.clearRect(0,0,bg.width,bg.height)
+function animate(){
+ ctx.clearRect(0,0,canvas.width,canvas.height)
+
+ ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--main-color')
 
  particles.forEach(p=>{
-  ctxBg.beginPath()
-  ctxBg.arc(p.x,p.y,p.r,0,Math.PI*2)
-  ctxBg.fillStyle = getComputedStyle(document.documentElement)
-   .getPropertyValue('--main-color')
-  ctxBg.globalAlpha = 0.6
-  ctxBg.fill()
+  ctx.beginPath()
+  ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+  ctx.fill()
 
-  p.x += p.dx
-  p.y += p.dy
+  p.x+=p.dx
+  p.y+=p.dy
 
-  if(p.x<0||p.x>bg.width) p.dx *= -1
-  if(p.y<0||p.y>bg.height) p.dy *= -1
+  if(p.x<0||p.x>canvas.width) p.dx*=-1
+  if(p.y<0||p.y>canvas.height) p.dy*=-1
  })
 
- requestAnimationFrame(animateBg)
+ requestAnimationFrame(animate)
 }
 
-animateBg()
-
-window.addEventListener("resize",()=>{
- bg.width = window.innerWidth
- bg.height = window.innerHeight
-})
-
+animate()
+  
   
 </script> 
 </body>  
